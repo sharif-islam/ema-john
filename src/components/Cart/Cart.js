@@ -1,9 +1,12 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import "./Cart.css";
 
 const Cart = (props) => {
   const cart = props.cart;
-  const total = cart.reduce((total, pd) => total + pd.price, 0);
+  const total = cart.reduce((total, pd) => total + pd.price * pd.quantity, 0);
 
   let shipping = 0;
   if (total > 100) {
@@ -20,7 +23,7 @@ const Cart = (props) => {
 
   return (
     <div>
-      <h4>Order Summary</h4>
+      <h4 className="text-primary">Order Summary</h4>
       <p>Items Ordered : {cart.length}</p>
       <p>product Price : {total.toFixed(2)}</p>
       <p>
@@ -31,6 +34,8 @@ const Cart = (props) => {
         <small>tax+VAT : {tax.toFixed(2)}</small>{" "}
       </p>
       <p>total Price : {(total + tax + shipping).toFixed(2)}</p>
+      <br />
+      {props.children}
     </div>
   );
 };
