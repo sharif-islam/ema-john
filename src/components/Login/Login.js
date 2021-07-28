@@ -54,7 +54,7 @@ function Login() {
     });
   };
 
-  const handleChange = (e) => {
+  const handleBlur = (e) => {
     let isFormValid = true;
     if (e.target.name === "email") {
       isFormValid = /\S+@\S+\.\S+/.test(e.target.value);
@@ -63,7 +63,6 @@ function Login() {
       isFormValid = isPasswordValid;
     }
     if (isFormValid) {
-      console.log("this form is Valid");
       const newUserInfo = { ...user };
       newUserInfo[e.target.name] = e.target.value;
       setUser(newUserInfo);
@@ -119,7 +118,7 @@ function Login() {
           <input
             type="text"
             name="name"
-            onBlur={handleChange}
+            onBlur={handleBlur}
             placeholder="your Name"
           />
         )}
@@ -127,7 +126,7 @@ function Login() {
         <input
           type="text"
           name="email"
-          onBlur={handleChange}
+          onBlur={handleBlur}
           placeholder="your Email address"
           required
         />
@@ -135,7 +134,7 @@ function Login() {
         <input
           type="password"
           name="password"
-          onBlur={handleChange}
+          onBlur={handleBlur}
           placeholder="your Password"
           required
         />

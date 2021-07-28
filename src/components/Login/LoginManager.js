@@ -66,7 +66,7 @@ export const handleGoogleSignOut = () => {
       return signInUser;
     })
     .catch((err) => {
-      console.log("signOut Error");
+      console.log("signOut Error", err);
     });
 };
 

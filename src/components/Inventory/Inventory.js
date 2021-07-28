@@ -9,4 +9,3 @@ const Inventory = () => {
 };
 
 export default Inventory;
-<h1>Inventory is Coming here...</h1>;

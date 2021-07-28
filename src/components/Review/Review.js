@@ -7,10 +7,8 @@ import {
 } from "../../utilities/databaseManager";
 import Cart from "../Cart/Cart";
 import ReviewItem from "../ReviewItem/ReviewItem";
-import happyImage from "../../images/giphy.gif";
 import { useHistory } from "react-router-dom";
 const Review = () => {
-  const [orderPlaced, setOrderPlaced] = useState(false);
   const history = useHistory();
   const handleProceedCheckOut = () => {
     history.push("/shipment");
@@ -21,8 +19,6 @@ const Review = () => {
     setCart(remainingProduct);
     removeFromDatabaseCart(product.key);
   };
-  let thankyou;
-  if (orderPlaced) thankyou = <img src={happyImage} alt="" />;
   useEffect(() => {
     const savedCart = getDatabaseCart();
     const productKeys = Object.keys(savedCart);
@@ -44,7 +40,6 @@ const Review = () => {
             product={pd}
           ></ReviewItem>
         ))}
-        {thankyou}
       </div>
       <div className="cart-container">
         <Cart cart={cart}>
