@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import fakeData from "../../fakeData";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
 import "./Shop.css";
@@ -12,19 +11,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Shop = () => {
-  const first10 = fakeData.slice(0, 10);
-  const products = first10;
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    fetch("https://immense-falls-41118.herokuapp.com/products")
+      .then((Res) => Res.json())
+      .then((data) => {
+        setProducts(data);
+      });
+  }, []);
 
   useEffect(() => {
     const savedCart = getDatabaseCart();
     const productKey = Object.keys(savedCart);
-    const previousProduct = productKey.map((existingKey) => {
-      const product = fakeData.find((pd) => pd.key === existingKey);
-      product.quantity = savedCart[existingKey];
-      return product;
-    });
-    setCart(previousProduct);
+    fetch("https://immense-falls-41118.herokuapp.com/productsByKeys", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productKey),
+    })
+      .then((res) => res.json())
+      .then((data) => setCart(data));
   }, []);
   const handleAddProduct = (product) => {
     const sameProduct = cart.find((pd) => pd === product);
